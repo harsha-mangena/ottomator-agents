@@ -3,7 +3,7 @@ import sys
 import psutil
 import asyncio
 import requests
-from xml.etree import ElementTree
+import defusedxml.ElementTree
 
 __location__ = os.path.dirname(os.path.abspath(__file__))
 __output__ = os.path.join(__location__, "output")
@@ -99,7 +99,7 @@ def get_pydantic_ai_docs_urls():
         response.raise_for_status()
         
         # Parse the XML
-        root = ElementTree.fromstring(response.content)
+        root = defusedxml.ElementTree.fromstring(response.content)
         
         # Extract all URLs from the sitemap
         # The namespace is usually defined in the root element
