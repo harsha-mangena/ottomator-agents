@@ -11,13 +11,13 @@ import os
 import logging
 from openai import OpenAI
 import asyncio
-import requests
 from datetime import datetime, timedelta
 import dateparser
 import httpx
 import re
 from fastapi.responses import HTMLResponse
 import pytz
+from security import safe_requests
 
 # At the top of the file, after imports
 logging.basicConfig(level=logging.INFO)
@@ -209,7 +209,7 @@ class NBAPredictor:
         params = {'dates[]': date}
         
         try:
-            response = requests.get(url, headers=headers, params=params)
+            response = safe_requests.get(url, headers=headers, params=params)
             response.raise_for_status()
             games = response.json()['data']
             logger.info(f"Found {len(games)} games for {date}")
@@ -225,7 +225,7 @@ class NBAPredictor:
         params = {'team_ids[]': [team_id]}
         
         try:
-            response = requests.get(url, headers=headers, params=params)
+            response = safe_requests.get(url, headers=headers, params=params)
             response.raise_for_status()
             return response.json()['data']
         except Exception as e:

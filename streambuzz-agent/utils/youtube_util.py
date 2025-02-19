@@ -17,6 +17,7 @@ from constants.enums import BuzzStatusEnum
 from exceptions.user_error import UserError
 from logger import log_method
 from utils import supabase_util
+from security import safe_requests
 
 # Load environment variables from .env file
 load_dotenv()
@@ -240,13 +241,13 @@ async def get_request_with_retries(
     for attempt, key_dict in enumerate(api_key_bunches):
         if use_keys:
             params["key"] = key_dict["api_key"]
-            response = requests.get(url, params=params, timeout=10)
+            response = safe_requests.get(url, params=params, timeout=10)
         else:
             headers = {
                 "Content-Type": "application/json",
                 "Authorization": f"Bearer {key_dict['access_token']}",
             }
-            response = requests.get(url, headers=headers, params=params, timeout=10)
+            response = safe_requests.get(url, headers=headers, params=params, timeout=10)
 
         try:
             if response.status_code == 200:

@@ -14,6 +14,7 @@ from lib.codegen_utilities import (
 )
 from lib.codegen_ai_provider_openai import get_openai_api_response
 from lib.codegen_ai_abstracts import LlmProviderAbstract
+from security import safe_requests
 
 DEBUG = False
 
@@ -136,7 +137,7 @@ class AllegroLlm(LlmProviderAbstract):
                     api_url, headers=headers,
                     json=payload)
             else:
-                model_response = requests.get(api_url, headers=headers)
+                model_response = safe_requests.get(api_url, headers=headers)
         except Exception as e:
             response['error'] = True
             response['error_message'] = str(e)

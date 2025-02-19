@@ -1,7 +1,7 @@
-import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from supabase_utils import log_message_to_supabase
+from security import safe_requests
 
 def crawl_url(url: str, session_id: str) -> str:
     """
@@ -21,7 +21,7 @@ def crawl_url(url: str, session_id: str) -> str:
         }
         
         # Fetch URL content
-        response = requests.get(url, headers=headers, timeout=10)
+        response = safe_requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         
         # Parse HTML

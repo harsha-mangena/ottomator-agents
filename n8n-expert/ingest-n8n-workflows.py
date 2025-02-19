@@ -3,10 +3,10 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_anthropic import ChatAnthropic
 from supabase import create_client, Client
 from dotenv import load_dotenv
-import requests
 import json
 import time
 import os
+from security import safe_requests
 
 load_dotenv()
 model = os.getenv('LLM_MODEL', 'gpt-4o')
@@ -30,7 +30,7 @@ def fetch_workflow(workflow_id):
         dict: Workflow template data if found, None if not found or on error
     """    
     url = f"https://api.n8n.io/api/templates/workflows/{workflow_id}"
-    response = requests.get(url)
+    response = safe_requests.get(url)
     if response.status_code == 200:
         return response.json()
     return None
