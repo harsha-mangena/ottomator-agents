@@ -128,8 +128,8 @@ def interact_with_voiceflow(action: dict, session_id: str) -> dict:
     response = requests.post(
         url=f"{url}?logs=off",
         headers=headers,
-        json=body
-    )
+        json=body, 
+    timeout=60)
     
     # Raise an exception for bad status codes
     response.raise_for_status()

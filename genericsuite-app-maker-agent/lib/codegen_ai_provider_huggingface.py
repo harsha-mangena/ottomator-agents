@@ -126,7 +126,7 @@ class HuggingFaceLlm(LlmProviderAbstract):
             "HUGGINGFACE_API_URL",
             "https://api-inference.huggingface.co/models")
         api_url = f'{base_url}/{repo_id}'
-        return requests.post(api_url, headers=headers, json=payload)
+        return requests.post(api_url, headers=headers, json=payload, timeout=60)
 
 
 class HuggingFaceImageGen(HuggingFaceLlm):

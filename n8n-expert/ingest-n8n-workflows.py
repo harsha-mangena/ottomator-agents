@@ -30,7 +30,7 @@ def fetch_workflow(workflow_id):
         dict: Workflow template data if found, None if not found or on error
     """    
     url = f"https://api.n8n.io/api/templates/workflows/{workflow_id}"
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
     if response.status_code == 200:
         return response.json()
     return None

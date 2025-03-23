@@ -51,7 +51,7 @@ def fetch_articles_from_brave(query: str, session_id: str):
             metadata={"query": query, "source": "Brave API"}
         )
         
-        response = requests.get(brave_api_url, headers=headers, params=params)
+        response = requests.get(brave_api_url, headers=headers, params=params, timeout=60)
         
         print(f"Response status: {response.status_code}")  # Debug log
         print(f"Response headers: {dict(response.headers)}")  # Debug log

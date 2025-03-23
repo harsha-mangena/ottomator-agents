@@ -209,7 +209,7 @@ class NBAPredictor:
         params = {'dates[]': date}
         
         try:
-            response = requests.get(url, headers=headers, params=params)
+            response = requests.get(url, headers=headers, params=params, timeout=60)
             response.raise_for_status()
             games = response.json()['data']
             logger.info(f"Found {len(games)} games for {date}")
@@ -225,7 +225,7 @@ class NBAPredictor:
         params = {'team_ids[]': [team_id]}
         
         try:
-            response = requests.get(url, headers=headers, params=params)
+            response = requests.get(url, headers=headers, params=params, timeout=60)
             response.raise_for_status()
             return response.json()['data']
         except Exception as e:
