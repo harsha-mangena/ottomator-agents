@@ -7,7 +7,7 @@ import os
 import json
 
 import uuid
-import requests
+from security import safe_requests
 
 
 DEBUG = False
@@ -83,7 +83,7 @@ def read_file(file_path, params: dict = None):
                 "https://github.com",
                 "https://raw.githubusercontent.com")
             file_path = file_path.replace("blob/", "")
-        response = requests.get(file_path)
+        response = safe_requests.get(file_path)
         if response.status_code == 200:
             content = response.text
         else:

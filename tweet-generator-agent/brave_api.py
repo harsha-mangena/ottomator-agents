@@ -4,6 +4,7 @@ import requests
 from fastapi import HTTPException
 from dotenv import load_dotenv
 from supabase_utils import log_message_to_supabase
+from security import safe_requests
 
 # Load environment variables
 load_dotenv()
@@ -51,7 +52,7 @@ def fetch_articles_from_brave(query: str, session_id: str):
             metadata={"query": query, "source": "Brave API"}
         )
         
-        response = requests.get(brave_api_url, headers=headers, params=params)
+        response = safe_requests.get(brave_api_url, headers=headers, params=params)
         
         print(f"Response status: {response.status_code}")  # Debug log
         print(f"Response headers: {dict(response.headers)}")  # Debug log
