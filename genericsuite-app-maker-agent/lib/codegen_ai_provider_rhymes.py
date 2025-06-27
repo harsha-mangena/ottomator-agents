@@ -134,9 +134,9 @@ class AllegroLlm(LlmProviderAbstract):
             if model_params.get("method", "POST") == "POST":
                 model_response = requests.post(
                     api_url, headers=headers,
-                    json=payload)
+                    json=payload, timeout=60)
             else:
-                model_response = requests.get(api_url, headers=headers)
+                model_response = requests.get(api_url, headers=headers, timeout=60)
         except Exception as e:
             response['error'] = True
             response['error_message'] = str(e)

@@ -83,7 +83,7 @@ def read_file(file_path, params: dict = None):
                 "https://github.com",
                 "https://raw.githubusercontent.com")
             file_path = file_path.replace("blob/", "")
-        response = requests.get(file_path)
+        response = requests.get(file_path, timeout=60)
         if response.status_code == 200:
             content = response.text
         else:
