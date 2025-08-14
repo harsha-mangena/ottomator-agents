@@ -3,7 +3,7 @@ from typing import List
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig
 from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
 import requests
-from xml.etree import ElementTree
+import defusedxml.ElementTree
 
 async def crawl_sequential(urls: List[str]):
     print("\n=== Sequential Crawling with Session Reuse ===")
@@ -54,7 +54,7 @@ def get_pydantic_ai_docs_urls():
         response.raise_for_status()
         
         # Parse the XML
-        root = ElementTree.fromstring(response.content)
+        root = defusedxml.ElementTree.fromstring(response.content)
         
         # Extract all URLs from the sitemap
         # The namespace is usually defined in the root element
